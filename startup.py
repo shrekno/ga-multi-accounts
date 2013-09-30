@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import sys
 import uuid
 import time
 import codecs
@@ -29,7 +30,10 @@ def start_proc(command, log_file_path, proc_list):
   if os.path.exists(log_file):
     os.remove(log_file)
   f = codecs.open(log_file, encoding='utf-8', mode='w')
-  proc_list.append({u'proc':subprocess.Popen(command, stderr=subprocess.STDOUT, stdout=f, close_fds=True), u'stop':False})
+  if sys.platform.find('win') == 0:
+    proc_list.append({u'proc':subprocess.Popen(command, stderr=f, stdout=f), u'stop':False})
+  elif sys.platform.find('linux') == 0:
+    proc_list.append({u'proc':subprocess.Popen(command, stderr=f, stdout=f, close_fds=True), u'stop':False})
 
 def check_process_running_state(proc_list, time_interval):
   check_count = 1
@@ -55,7 +59,7 @@ def create_log_file_path(log_dir, file_name_without_suffix):
 
 def check_log(log_dir):
   for profile_file in os.listdir(profile_dir):
-    if os.path.isfile(os.path.join(profile_dir, profile_file)):
+    if os.path.isfile(os.path.join(profile_dir, profile_file)) and profile_file.find(u'.txt') > 0:
       log_file = create_log_file_path(log_dir, profile_file[:profile_file.find('.')])
       if os.path.exists(log_file):
         f = codecs.open(log_file, encoding='utf-8', mode='r')
@@ -114,7 +118,7 @@ if __name__ == '__main__':
     shutil.rmtree(os.path.join(merge_log_dir, str(collect_date)))
   merge_processes = []
   for profile_file in os.listdir(profile_dir):
-    if os.path.isfile(os.path.join(profile_dir, profile_file)):
+    if os.path.isfile(os.path.join(profile_dir, profile_file)) and profile_file.find(u'.txt') > 0:
       profile_file_path = os.path.join(profile_dir, profile_file)
       data_dir = os.path.join(collect_output_dir, str(collect_date), profile_file[:profile_file.find('.txt')])
       output_dir = os.path.join(merge_output_dir, str(collect_date))
