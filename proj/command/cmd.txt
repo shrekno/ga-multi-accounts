@@ -1,0 +1,10 @@
+[Region Main Process Start Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:region
+_fil=ga:eventCategory==ProcessStartup
+_seg=
+_sor=
+_max=
+_ind=
