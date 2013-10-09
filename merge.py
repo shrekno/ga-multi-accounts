@@ -44,6 +44,9 @@ def two_way_merge(left, right):
         exit(1)
       if (u'containsSampledData' in l_result) and (u'containsSampledData' in r_result):
         l_result[u'containsSampledData'] = l_result[u'containsSampledData'] or r_result[u'containsSampledData']
+        if l_result[u'containsSampledData']:
+          print u'sampled data!'
+          exit(1)
       else:
         print u'result error'
         exit(1)
@@ -55,11 +58,11 @@ def two_way_merge(left, right):
           else:
             break
       if not u'rows' in r_result:
-        print 'no rows'
-        return
+        print left[i]['name'], 'no rows'
+        continue
       elif not u'rows' in l_result:
         l_result[u'rows'] = r_result[u'rows']
-        return
+        continue
       else:
         if dimensions_count == 0:
           for index in xrange(0, len(l_result[u'rows'][0])):
