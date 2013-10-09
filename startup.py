@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import re
 import sys
 import uuid
 import time
@@ -81,6 +82,15 @@ def check_log(log_dir):
 if __name__ == '__main__':
   # the day before yesterday
   collect_date = datetime.date.today() - datetime.timedelta(days = 1)
+
+  if len(sys.argv) > 1:
+    argv_start_index = 1
+    reg_date = r'[0-9]{4}-[0-9]{2}-[0-9]{2}'
+    if not re.match(reg_date, sys.argv[argv_start_index]):
+      print u'collect date error, reg:[0-9]{4}-[0-9]{2}-[0-9]{2}'
+      exit(1) 
+    collect_date_array = sys.argv[argv_start_index].split('-')
+    collect_date = datetime.date(int(collect_date_array[0]), int(collect_date_array[1]), int(collect_date_array[2]))
 
   # collect
   if os.path.exists(os.path.join(collect_log_dir, str(collect_date))):
