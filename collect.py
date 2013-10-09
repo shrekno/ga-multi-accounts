@@ -165,7 +165,7 @@ def main(argv):
   output_dir_path = argv[argv_start_index+4]
   reg_date = r'[0-9]{4}-[0-9]{2}-[0-9]{2}'
   if not re.match(reg_date, argv[argv_start_index+5]):
-    print u'collent date error, reg:[0-9]{4}-[0-9]{2}-[0-9]{2}'
+    print u'collect date error, reg:[0-9]{4}-[0-9]{2}-[0-9]{2}'
     return
   collect_date_array = argv[argv_start_index+5].split('-')
   collect_date = datetime.date(int(collect_date_array[0]), int(collect_date_array[1]), int(collect_date_array[2]))
