@@ -77,7 +77,7 @@ def get_results(service,
   """
   if len(_dimensions) > 0 and _dimensions != u'':
     param += u',dimensions=_dimensions'
-  if len(_filters) > 0 and _dimensions != u'':
+  if len(_filters) > 0 and _filters != u'':
     param += u',filters=_filters'
   if len(_segment) > 0 and _segment != u'':
     param += u',segment=_segment'
