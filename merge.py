@@ -135,6 +135,8 @@ def two_way_merge(left, right):
   if len(right) == 0:
     print 'right is empty'
     return
+  avg_process(left, pre_avg_op)
+  avg_process(right, pre_avg_op)
   for i in xrange(0, len(left)):
     l_result = {}
     r_result = {}
@@ -208,6 +210,7 @@ def two_way_merge(left, right):
     else:
       print u'data error'
       exit(1)
+  avg_process(left, post_avg_op)
 
 def load_json_data(file_path):
   if not os.path.exists(file_path):
