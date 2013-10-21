@@ -274,5 +274,5 @@ if __name__ == '__main__':
   if len(argv) < 3:
     print u'agrv error.'
     print u'Usage: merge.py profile_id_file_path data_dir_path output_dir_path'
-    return
+    exit(1)
   main(sys.argv[1:])

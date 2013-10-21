@@ -66,5 +66,5 @@ if __name__ == '__main__':
   if len(argv) < 3:
     print u'agrv error.'
     print u'Usage: auth.py client_secrets_dir_path output_token_dir_path [other parameters for run_flow()]'
-    return
+    exit(1)
   main(sys.argv[1:])

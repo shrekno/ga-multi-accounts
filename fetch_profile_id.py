@@ -108,5 +108,5 @@ if __name__ == '__main__':
   if len(argv) < 4:
     print u'agrv error.'
     print u'Usage: fetch_profile_id.py client_secrets_file_path token_file_path output_dir_path'
-    return
+    exit(1)
   main(sys.argv[1:])
