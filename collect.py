@@ -152,14 +152,7 @@ def get_cmds(cmd_file_path, collect_date):
   f.close()
 
 def main(argv):
-  if len(argv) < 7:
-    print u'agrv error.'
-    print u'Usage: collect.py profile_id_file_path cmd_file_path client_secrets_file_path token_file_path output_dir_path collect_date user_uuid'
-    return
-
   argv_start_index = 0
-  if __name__ == '__main__': 
-    argv_start_index = 1
   profile_id_file_path = argv[argv_start_index]
   cmd_file_path = argv[argv_start_index +1]
   client_secrets_file_path = argv[argv_start_index+2]
@@ -249,4 +242,8 @@ def main(argv):
   print u'\nAll complete.'
 
 if __name__ == '__main__':
-  main(sys.argv)
+  if len(sys.argv) < 7:
+    print u'agrv error.'
+    print u'Usage: collect.py profile_id_file_path cmd_file_path client_secrets_file_path token_file_path output_dir_path collect_date user_uuid'
+    return
+  main(sys.argv[1:])

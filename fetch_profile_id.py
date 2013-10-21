@@ -66,12 +66,7 @@ def fetch_all_profile_id(service, profile_ids):
           continue
 
 def main(argv):
-  if len(argv) < 4:
-    print u'agrv error.'
-    print u'Usage: fetch_profile_id.py client_secrets_file_path token_file_path output_dir_path'
-    return
-
-  argv_start_index = 1
+  argv_start_index = 0
   client_secrets_file_path = argv[argv_start_index]
   token_file_path = argv[argv_start_index+1]
   output_dir_path = argv[argv_start_index+2]
@@ -110,4 +105,8 @@ def main(argv):
            u'the application to re-authorize')
 
 if __name__ == '__main__':
-  main(sys.argv)
+  if len(argv) < 4:
+    print u'agrv error.'
+    print u'Usage: fetch_profile_id.py client_secrets_file_path token_file_path output_dir_path'
+    return
+  main(sys.argv[1:])

@@ -43,14 +43,7 @@ def auth(token_file_path, client_secrets_file_path, parameters):
     credentials = tools.run_flow(flow, storage, flags)
 
 def main(argv):
-  if len(argv) < 3:
-    print u'agrv error.'
-    print u'Usage: auth.py client_secrets_dir_path output_token_dir_path [other parameters for run_flow()]'
-    return
-
   argv_start_index = 0
-  if __name__ == '__main__': 
-    argv_start_index = 1
   client_secrets_dir_path = argv[argv_start_index]
   output_token_dir_path = argv[argv_start_index+1]
   other_param = argv[argv_start_index+2:]
@@ -70,4 +63,8 @@ def main(argv):
   print u'\nAll complete.'
 
 if __name__ == '__main__':
-  main(sys.argv)
+  if len(argv) < 3:
+    print u'agrv error.'
+    print u'Usage: auth.py client_secrets_dir_path output_token_dir_path [other parameters for run_flow()]'
+    return
+  main(sys.argv[1:])

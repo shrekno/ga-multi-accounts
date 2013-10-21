@@ -84,14 +84,8 @@ def main(argv):
   # the day before yesterday
   collect_date = datetime.date.today() - datetime.timedelta(days = 1)
 
-  argv_start_index = -1
-  if __name__ == '__main__':
-    if len(argv) > 1:
-      argv_start_index = 1
-  else:
-    if len(argv) > 0:
-      argv_start_index = 0
-  if argv_start_index >= 0:
+  if len(argv) > 0:
+    argv_start_index = 0
     reg_date = r'[0-9]{4}-[0-9]{2}-[0-9]{2}'
     if not re.match(reg_date, argv[argv_start_index]):
       print u'collect date error, reg:[0-9]{4}-[0-9]{2}-[0-9]{2}'
@@ -209,4 +203,5 @@ def main(argv):
 
 
 if __name__ == '__main__':
-  main(sys.argv)
+  if len(sys.argv) > 1:
+    main(sys.argv[1:])
