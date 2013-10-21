@@ -230,7 +230,9 @@ def main(argv):
     print u'Usage: merge.py profile_id_file_path data_dir_path output_dir_path'
     return
 
-  argv_start_index = 1
+  argv_start_index = 0
+  if __name__ == '__main__': 
+    argv_start_index = 1
   profile_id_file_path = argv[argv_start_index]
   data_dir_path = argv[argv_start_index+1]
   output_dir_path = argv[argv_start_index+2]

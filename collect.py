@@ -157,7 +157,9 @@ def main(argv):
     print u'Usage: collect.py profile_id_file_path cmd_file_path client_secrets_file_path token_file_path output_dir_path collect_date user_uuid'
     return
 
-  argv_start_index = 1
+  argv_start_index = 0
+  if __name__ == '__main__': 
+    argv_start_index = 1
   profile_id_file_path = argv[argv_start_index]
   cmd_file_path = argv[argv_start_index +1]
   client_secrets_file_path = argv[argv_start_index+2]
