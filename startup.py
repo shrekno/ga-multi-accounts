@@ -67,11 +67,9 @@ def check_log(log_dir, profile_dir):
         exit(1)
 
 def main(argv):
-  collect_file_name = 'collect.py'
-  merge_file_name = 'merge.py'
-
   current_dir = os.path.dirname(__file__)
-
+  collect_file_name = os.path.join(current_dir, u'collect.py')
+  merge_file_name = os.path.join(current_dir, u'merge.py')
   profile_dir = os.path.join(current_dir, u'proj/profile')
   command_dir = os.path.join(current_dir, u'proj/command')
   cs_conf_dir = os.path.join(current_dir, u'proj/client_secrets')
@@ -91,7 +89,7 @@ def main(argv):
     reg_date = r'[0-9]{4}-[0-9]{2}-[0-9]{2}'
     if not re.match(reg_date, argv[argv_start_index]):
       print u'collect date error, reg:[0-9]{4}-[0-9]{2}-[0-9]{2}'
-      exit(1) 
+      exit(1)
     collect_date_array = argv[argv_start_index].split('-')
     collect_date = datetime.date(int(collect_date_array[0]), int(collect_date_array[1]), int(collect_date_array[2]))
 
