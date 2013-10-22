@@ -48,10 +48,12 @@ def avg_process(dat_arr, op):
               metrics_name = u'metrics'
               if avg_query[start_date_name] == event_query[start_date_name] and \
                 avg_query[end_date_name] == event_query[end_date_name] and \
-                avg_query[filters_name] == event_query[filters_name] and \
                 len(avg_query[metrics_name]) == len(event_query[metrics_name]):
                 if dimensions_name in avg_query and dimensions_name in event_query:
                   if not avg_query[dimensions_name] == event_query[dimensions_name]:
+                      continue
+                if filters_name in avg_query and filters_name in event_query:
+                  if not avg_query[filters_name] == event_query[filters_name]:
                       continue
                 metrics_same = True
                 for m in avg_query[metrics_name]:
