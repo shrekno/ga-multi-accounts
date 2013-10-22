@@ -35,7 +35,7 @@ def avg_process(dat_arr, op):
           # find total events data member
           event_data_flag = False
           event_rows = []
-          evnet_heads = []
+          event_heads = []
           avg_query = avg_result[u'query']
           for event_dat in dat_arr:
             event_result = event_dat[u'result']
@@ -51,10 +51,14 @@ def avg_process(dat_arr, op):
                 len(avg_query[metrics_name]) == len(event_query[metrics_name]):
                 if dimensions_name in avg_query and dimensions_name in event_query:
                   if not avg_query[dimensions_name] == event_query[dimensions_name]:
-                      continue
+                    continue
+                elif not (not (dimensions_name in avg_query) and not (dimensions_name in event_query)):
+                  continue
                 if filters_name in avg_query and filters_name in event_query:
                   if not avg_query[filters_name] == event_query[filters_name]:
-                      continue
+                    continue
+                elif not (not (filters_name in avg_query) and not (filters_name in event_query)):
+                  continue
                 metrics_same = True
                 for m in avg_query[metrics_name]:
                   if (not m == u'ga:avgEventValue') and \
@@ -106,7 +110,7 @@ def avg_process(dat_arr, op):
             for row in avg_rows:
               key_name = u''
               for index in xrange(0, avg_dimensions_count):
-               key_name += row[index]
+                key_name += row[index]
               if not key_name in total_events_map:
                 print u'data error 2 in avg_pre_process'
                 exit(1)
