@@ -114,7 +114,7 @@ def avg_process(dat_arr, op):
               if not key_name in total_events_map:
                 print u'data error 2 in avg_pre_process'
                 exit(1)
-              print float(row[avg_event_value_index]), u'op' ,float(total_events_map[key_name]), u'=', 
+              print float(row[avg_event_value_index]), u'op' ,float(total_events_map[key_name]), u'=',
               row[avg_event_value_index] = str(op(float(row[avg_event_value_index]), float(total_events_map[key_name])))
               print row[avg_event_value_index]
               print row
