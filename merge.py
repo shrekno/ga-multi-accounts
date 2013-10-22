@@ -271,7 +271,7 @@ def main(argv):
   print u'\nAll complete.'
 
 if __name__ == '__main__':
-  if len(argv) < 3:
+  if len(sys.argv) < 3:
     print u'agrv error.'
     print u'Usage: merge.py profile_id_file_path data_dir_path output_dir_path'
     exit(1)

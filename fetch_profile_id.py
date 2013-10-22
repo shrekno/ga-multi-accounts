@@ -105,7 +105,7 @@ def main(argv):
            u'the application to re-authorize')
 
 if __name__ == '__main__':
-  if len(argv) < 4:
+  if len(sys.argv) < 4:
     print u'agrv error.'
     print u'Usage: fetch_profile_id.py client_secrets_file_path token_file_path output_dir_path'
     exit(1)
