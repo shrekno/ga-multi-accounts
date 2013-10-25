@@ -23,6 +23,7 @@ def process_pump(command_list, retry_limit_count, process_limit_count, time_inte
   command_index = 0
   processes = []
   check_count = 0
+  retry = {}
   while True:
     peek_process_running_state(processes)
     running_count = 0

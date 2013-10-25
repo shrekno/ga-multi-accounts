@@ -160,7 +160,7 @@ def main(argv):
   service = initialize_service(token_file_path, client_secrets_file_path)
   if not os.path.exists(output_dir_path):
     os.makedirs(output_dir_path)
-    
+
   cmds = get_cmds(cmd_file_path)
   print u'Init succ.'
   print u'\nID:', profile
@@ -239,5 +239,5 @@ if __name__ == '__main__':
     print u'agrv error.'
     print u'Usage: collect.py profile_id cmd_file_path client_secrets_file_path token_file_path output_dir_path collect_date user_uuid'
     exit(1)
-	main(sys.argv[1:])
+  main(sys.argv[1:])
   
