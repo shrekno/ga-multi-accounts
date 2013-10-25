@@ -17,12 +17,14 @@ from oauth2client import tools
 from apiclient.errors import HttpError
 from oauth2client.client import AccessTokenRefreshError
 
+
 cmds = []
 profile_id = []
 parser = argparse.ArgumentParser(
     description=__doc__,
     formatter_class=argparse.RawDescriptionHelpFormatter,
     parents=[tools.argparser])
+
 
 def auth(token_file_path, client_secrets_file_path, parameters):
   if not os.path.exists(client_secrets_file_path):
@@ -42,6 +44,7 @@ def auth(token_file_path, client_secrets_file_path, parameters):
   if credentials is None or credentials.invalid:
     credentials = tools.run_flow(flow, storage, flags)
 
+
 def main(argv):
   argv_start_index = 0
   client_secrets_dir_path = argv[argv_start_index]
@@ -49,7 +52,7 @@ def main(argv):
   other_param = argv[argv_start_index+2:]
 
   if not os.path.exists(client_secrets_dir_path):
-    print client_secrets_dir_path, u'is not exists.'
+    print u'Error:', client_secrets_dir_path, u'is not exists.'
     exit(1)
   if not os.path.exists(output_token_dir_path):
     os.makedirs(output_token_dir_path)
@@ -61,6 +64,7 @@ def main(argv):
       auth(os.path.abspath(token_file_path), os.path.abspath(client_secrets_file_path), other_param)
 
   print u'\nAll complete.'
+
 
 if __name__ == '__main__':
   if len(sys.argv) < 3:

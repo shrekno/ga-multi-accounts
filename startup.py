@@ -9,62 +9,11 @@ import time
 import codecs
 import shutil
 import datetime
-import subprocess
 
+import util
+import collect
 from proj import conf
 
-
-def start_proc(command, log_file_path, proc_list):
-  if os.path.exists(log_file_path):
-    os.remove(log_file_path)
-  f = codecs.open(log_file_path, encoding='utf-8', mode='w')
-  if sys.platform.find('win') == 0:
-    proc_list.append({u'proc':subprocess.Popen(command, stderr=f, stdout=f), u'stop':False})
-  elif sys.platform.find('linux') == 0:
-    proc_list.append({u'proc':subprocess.Popen(command, stderr=f, stdout=f, close_fds=True), u'stop':False})
-
-def check_process_running_state(proc_list, time_interval):
-  check_count = 1
-  while True:
-    time.sleep(time_interval)
-    print u'Checking...' + str(check_count)
-    check_count += 1
-    all_stop = True
-    for sp in proc_list:
-      if not sp[u'stop']:
-        sp[u'proc'].poll()
-        all_stop = False
-      if sp[u'proc'].returncode != None:
-        sp[u'stop'] = True
-    if all_stop:
-      break
-  print u'Run Time:', str((check_count-1)*time_interval), u'Seconds.'
-
-def create_log_file_path(log_dir, file_name_without_suffix):
-  if not os.path.exists(log_dir):
-    os.makedirs(log_dir)
-  return os.path.join(log_dir, u'log_' + file_name_without_suffix + u'.txt')
-
-def check_log(log_dir, profile_dir):
-  for profile_file in os.listdir(profile_dir):
-    if os.path.isfile(os.path.join(profile_dir, profile_file)) and profile_file.find(u'.txt') > 0:
-      log_file = create_log_file_path(log_dir, profile_file[:profile_file.find('.')])
-      if os.path.exists(log_file):
-        f = codecs.open(log_file, encoding='utf-8', mode='r')
-        line = f.readline()
-        single_succ = False
-        while line:
-          if line.find(u'All complete.') >= 0:
-            single_succ = True
-            break
-          line = f.readline()
-        f.close()
-        if not single_succ:
-          print log_file, u'Has Error.'
-          exit(1)
-      else:
-        print log_file, u'Is Not Exists.'
-        exit(1)
 
 def main(argv):
   current_dir = os.path.dirname(__file__)
@@ -96,7 +45,6 @@ def main(argv):
   # collect
   if os.path.exists(os.path.join(collect_log_dir, str(collect_date))):
     shutil.rmtree(os.path.join(collect_log_dir, str(collect_date)))
-  collect_processes = []
   for profile_file in os.listdir(profile_dir):
     if os.path.isfile(os.path.join(profile_dir, profile_file)) and profile_file.find(u'.txt') > 0:
       cs_file_name = u'cs_1'
@@ -109,25 +57,14 @@ def main(argv):
       output_dir = os.path.join(collect_output_dir, str(collect_date), profile_file[:profile_file.find('.txt')])
       if not os.path.exists(output_dir):
         os.makedirs(output_dir)
-      comp_command = [u'python', collect_file_name, profile_file_path, cmd_file, cs_conf_file, cs_data_file, output_dir, str(collect_date), str(uuid.uuid4())]
-      log_file = create_log_file_path(os.path.join(collect_log_dir, str(collect_date)), profile_file[:profile_file.find('.')])
-      start_proc(comp_command, log_file, collect_processes)
-      print u'Collect Proc For', profile_file, u'Is Starting.'
-      if len(collect_processes) % 5 == 0:
-        # wait
-        print u'Check Collect Proc Running States.'
-        check_process_running_state(collect_processes, 2)
-        print u'All Collect Proc Quit.'
-
-  # verify
-  print u'Check Collect Result Logs.'
-  check_log(os.path.join(collect_log_dir, str(collect_date)), profile_dir)
+      print u'Start Collect', profile_file
+      collect.main(profile_file_path, cmd_file, cs_conf_file, cs_data_file, output_dir, str(collect_date), str(uuid.uuid4()))
   print u'All Collect Succ.'
 
   # merge
   if os.path.exists(os.path.join(merge_log_dir, str(collect_date))):
     shutil.rmtree(os.path.join(merge_log_dir, str(collect_date)))
-  merge_processes = []
+  merge_commands = []
   for profile_file in os.listdir(profile_dir):
     if os.path.isfile(os.path.join(profile_dir, profile_file)) and profile_file.find(u'.txt') > 0:
       profile_file_path = os.path.join(profile_dir, profile_file)
@@ -136,18 +73,11 @@ def main(argv):
       if not os.path.exists(output_dir):
         os.makedirs(output_dir)
       comp_command = [u'python', merge_file_name, profile_file_path, data_dir, output_dir]
-      log_file = create_log_file_path(os.path.join(merge_log_dir, str(collect_date)), profile_file[:profile_file.find('.')])
-      start_proc(comp_command, log_file, merge_processes)
-      print u'Merge Proc For', profile_file, u'Is Starting.'
+      log_file = util.create_log_file_path(os.path.join(merge_log_dir, str(collect_date)), profile_file[:profile_file.find('.')])
+      merge_commands.append({u'command': comp_command, u'log': log_file})
 
-  # wait
-  print u'Check Merge Proc Running States.'
-  check_process_running_state(merge_processes, 1)
-  print u'All Merge Proc Quit.'
-
-  # verify
-  print u'Check Merge Result Logs.'
-  check_log(os.path.join(merge_log_dir, str(collect_date)), profile_dir)
+  print u'Start Merge'
+  util.process_pump(merge_commands, 3, 5, 0.5)
   print u'All Merge Succ.'
 
   # last merge
@@ -170,33 +100,9 @@ def main(argv):
     shutil.rmtree(os.path.join(merge_log_dir, str(collect_date), u'last_merge'))
   last_merge_process = []
   comp_command = [u'python', merge_file_name, last_merge_index_file_path, merged_data_dir, last_merge_dir]
-  log_file = create_log_file_path(os.path.join(merge_log_dir, str(collect_date), u'last_merge'), u'last_merge')
-  start_proc(comp_command, log_file, last_merge_process)
-  print u'Last Merge Proc Is Starting.'
-
-  # wait
-  print u'Check Last Merge Proc Running States.'
-  check_process_running_state(last_merge_process, 1)
-  print u'All Merge Proc Quit.'
-
-  # verify
-  print u'Check Last Merge Result Log.'
-  if os.path.exists(log_file):
-    f = codecs.open(log_file, encoding='utf-8', mode='r')
-    line = f.readline()
-    single_succ = False
-    while line:
-      if line.find(u'All complete.') >= 0:
-        single_succ = True
-        break
-      line = f.readline()
-    f.close()
-    if not single_succ:
-      print log_file, u'Has Error.'
-      exit(1)
-  else:
-    print log_file, u'Is Not Exists.'
-    exit(1)
+  log_file = util.create_log_file_path(os.path.join(merge_log_dir, str(collect_date), u'last_merge'), u'last_merge')
+  print u'Start Last Merge'
+  util.process_pump([{u'command': comp_command, u'log': log_file}], 3, 5, 0.5)
   print u'Last Merge Succ.'
 
   print u'All Succ.'

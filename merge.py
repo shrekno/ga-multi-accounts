@@ -14,7 +14,7 @@ def pre_avg_op(lval, rval):
 
 def post_avg_op(lval, rval):
   if rval - 0 < 1:
-    print u'zero!'
+    print u'Error: zero!'
     exit(1)
   return lval / rval
 
@@ -94,7 +94,7 @@ def avg_process(dat_arr, op):
               total_events_map[key_name] = row[total_events_index]
 
             if not len(total_events_map) == len(avg_rows):
-              print u'data error 1 in avg_pre_process'
+              print u'Error: data error 1 in avg_pre_process'
               exit(1)
 
             avg_dimensions_count = 0
@@ -112,7 +112,7 @@ def avg_process(dat_arr, op):
               for index in xrange(0, avg_dimensions_count):
                 key_name += row[index]
               if not key_name in total_events_map:
-                print u'data error 2 in avg_pre_process'
+                print u'Error: data error 2 in avg_pre_process'
                 exit(1)
               print float(row[avg_event_value_index]), u'op' ,float(total_events_map[key_name]), u'=',
               row[avg_event_value_index] = str(op(float(row[avg_event_value_index]), float(total_events_map[key_name])))
@@ -124,7 +124,7 @@ def avg_process(dat_arr, op):
 
 def get_profile_ids(profile_id_file_path):
   if not os.path.exists(profile_id_file_path):
-    print profile_id_file_path, u'is not exists'
+    print u'Error:', profile_id_file_path, u'is not exists'
     exit(1)
   f = codecs.open(profile_id_file_path, encoding='utf-8', mode='r')
   line = f.readline()
@@ -139,7 +139,7 @@ def two_way_merge(left, right):
   if len(left) == 0:
     exit(1)
   if len(right) == 0:
-    print 'right is empty'
+    print 'Error: right is empty'
     return
   avg_process(left, pre_avg_op)
   avg_process(right, pre_avg_op)
@@ -150,20 +150,20 @@ def two_way_merge(left, right):
       if u'result' in left[i]:
         l_result = left[i][u'result']
       else:
-        print u'left no result'
+        print u'Error: left no result'
         exit(1)
       if u'result' in right[i]:
         r_result = right[i][u'result']
       else:
-        print u'right no result'
+        print u'Error: right no result'
         exit(1)
       if (u'containsSampledData' in l_result) and (u'containsSampledData' in r_result):
         l_result[u'containsSampledData'] = l_result[u'containsSampledData'] or r_result[u'containsSampledData']
         if l_result[u'containsSampledData']:
-          print u'sampled data!'
+          print u'Fatal Error: sampled data!'
           exit(1)
       else:
-        print u'result error'
+        print u'Error: result error'
         exit(1)
       dimensions_count = 0
       if u'columnHeaders' in l_result:
@@ -173,7 +173,7 @@ def two_way_merge(left, right):
           else:
             break
       if not u'rows' in r_result:
-        print left[i]['name'], 'no rows'
+        print u'Error:', left[i]['name'], 'no rows'
         continue
       elif not u'rows' in l_result:
         l_result[u'rows'] = r_result[u'rows']
@@ -214,13 +214,13 @@ def two_way_merge(left, right):
             else:
               l_result[u'rows'].append(dim)
     else:
-      print u'data error'
+      print u'Error: data error'
       exit(1)
   avg_process(left, post_avg_op)
 
 def load_json_data(file_path):
   if not os.path.exists(file_path):
-    print file_path, 'is not exists.'
+    print u'Error:', file_path, 'is not exists.'
     exit(1)
   f = codecs.open(file_path, encoding='utf-8', mode='r')
   line = f.readline()
@@ -241,7 +241,7 @@ def main(argv):
 
   get_profile_ids(profile_id_file_path)
   if not len(profile_id) > 0:
-    print u'no profile'
+    print u'Error: no profile'
     exit(1)
 
   profile_id_file_name = os.path.basename(profile_id_file_path)
@@ -261,7 +261,7 @@ def main(argv):
   merge_queue = profile_id[init_data_file_index+1:]
   if len(merge_queue) == 0:
     if not os.path.exists(init_data_file_path):
-      print init_data_file_path, u'is not exists.'
+      print u'Error:', init_data_file_path, u'is not exists.'
       exit(1)
     shutil.copyfile(init_data_file_path, output_file_path)
   else:

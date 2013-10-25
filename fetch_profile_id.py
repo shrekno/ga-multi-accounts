@@ -17,12 +17,14 @@ from oauth2client import tools
 from apiclient.errors import HttpError
 from oauth2client.client import AccessTokenRefreshError
 
+
 cmds = []
 profile_id = []
 parser = argparse.ArgumentParser(
     description=__doc__,
     formatter_class=argparse.RawDescriptionHelpFormatter,
     parents=[tools.argparser])
+
 
 def initialize_service(token_file_path, client_secrets_file_path):
   flow = client.flow_from_clientsecrets(client_secrets_file_path,
@@ -40,6 +42,7 @@ def initialize_service(token_file_path, client_secrets_file_path):
   http = httplib2.Http()
   http = credentials.authorize(http)
   return discovery.build('analytics', 'v3', http=http)
+
 
 def fetch_all_profile_id(service, profile_ids):
   accounts = service.management().accounts().list().execute()
@@ -64,6 +67,7 @@ def fetch_all_profile_id(service, profile_ids):
           profile_ids.append({name : elem})
       else:
           continue
+
 
 def main(argv):
   argv_start_index = 0
@@ -92,17 +96,18 @@ def main(argv):
     print u'\nAll complete.'
   except TypeError, error:
     # Handle errors in constructing a query.
-    print (u'There was an error in constructing your query : %s' % error)
+    print (u'Except: There was an error in constructing your query : %s' % error)
 
   except HttpError, error:
     # Handle API errors.
-    print (u'Arg, there was an API error : %s : %s' %
+    print (u'Except: Arg, there was an API error : %s : %s' %
            (error.resp.status, error._get_reason()))
 
   except AccessTokenRefreshError:
     # Handle Auth errors.
-    print (u'The credentials have been revoked or expired, please re-run '
+    print (u'Except: The credentials have been revoked or expired, please re-run '
            u'the application to re-authorize')
+
 
 if __name__ == '__main__':
   if len(sys.argv) < 4:
