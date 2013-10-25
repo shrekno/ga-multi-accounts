@@ -45,7 +45,7 @@ def process_pump(command_list, retry_limit_count, process_limit_count, time_inte
         retry_log_file = proc[u'log']
         del processes[processes.index(proc)]
         print u'Retry: ', str(retry_command)
-        util.start_proc(retry_command, retry_log_file, processes)
+        start_proc(retry_command, retry_log_file, processes)
       elif proc[u'status'] == u'succ':
         print u'Run Time:', str((check_count)*time_interval), u'seconds.'
       else:
