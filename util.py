@@ -47,6 +47,7 @@ def process_pump(command_list, retry_limit_count, process_limit_count, time_inte
         print u'Retry: ', str(retry_command)
         start_proc(retry_command, retry_log_file, processes)
       elif proc[u'status'] == u'succ':
+        pass
       else:
         print u'Error: Unknown Status -', proc[u'status']
         exit(1)
