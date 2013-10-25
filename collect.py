@@ -55,6 +55,7 @@ def main(argv):
   process_commands = []
   for profile in profile_id:
     comp_command = [u'python', collect_file_name, profile, cmd_file_path, client_secrets_file_path, token_file_path, output_dir_path, str(collect_date), str(uuid.uuid4())]
+    profile_file = os.path.basename(profile_id_file_path)
     log_file = util.create_log_file_path(os.path.join(collect_log_dir, str(collect_date), profile_file[:profile_file.find('.')]), profile)
     process_commands.append({u'command': comp_command, u'log': log_file})
 
