@@ -38,7 +38,7 @@ def main(argv):
   cmd_file_path = argv[argv_start_index + 2]
   client_secrets_file_path = argv[argv_start_index + 3]
   token_file_path = argv[argv_start_index + 4]
-  collect_log_dir = os.path.join(current_dir, argv[argv_start_index + 5])
+  collect_log_dir = argv[argv_start_index + 5]
   output_dir_path = argv[argv_start_index + 6]
   reg_date = r'[0-9]{4}-[0-9]{2}-[0-9]{2}'
   if not re.match(reg_date, argv[argv_start_index + 7]):
