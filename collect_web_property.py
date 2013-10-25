@@ -93,6 +93,7 @@ def get_results(service,
 
 
 def get_cmds(cmd_file_path, collect_date):
+  cmds = []
   if not os.path.exists(cmd_file_path):
     print cmd_file_path, 'is not exists'
     exit(1)
