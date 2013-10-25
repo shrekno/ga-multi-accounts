@@ -31,20 +31,20 @@ def get_profile_ids(profile_id_file_path):
 
 
 def main(argv):
-  current_dir = os.path.dirname(__file__)
-  collect_file_name = os.path.join(current_dir, u'collect_web_property.py')
 
   argv_start_index = 0
-  profile_id_file_path = argv[argv_start_index]
-  cmd_file_path = argv[argv_start_index +1]
-  client_secrets_file_path = argv[argv_start_index+2]
-  token_file_path = argv[argv_start_index+3]
-  output_dir_path = argv[argv_start_index+4]
+  collect_file_name = argv[argv_start_index]
+  profile_id_file_path = argv[argv_start_index + 1]
+  cmd_file_path = argv[argv_start_index + 2]
+  client_secrets_file_path = argv[argv_start_index + 3]
+  token_file_path = argv[argv_start_index + 4]
+  collect_log_dir = os.path.join(current_dir, argv[argv_start_index + 5])
+  output_dir_path = argv[argv_start_index + 6]
   reg_date = r'[0-9]{4}-[0-9]{2}-[0-9]{2}'
-  if not re.match(reg_date, argv[argv_start_index+5]):
+  if not re.match(reg_date, argv[argv_start_index + 7]):
     print u'Error: collect date error, reg:[0-9]{4}-[0-9]{2}-[0-9]{2}'
     return
-  collect_date_array = argv[argv_start_index+5].split('-')
+  collect_date_array = argv[argv_start_index + 7].split('-')
   collect_date = datetime.date(int(collect_date_array[0]), int(collect_date_array[1]), int(collect_date_array[2]))
 
   if not os.path.exists(output_dir_path):
@@ -64,8 +64,8 @@ def main(argv):
 
 
 if __name__ == '__main__':
-  if len(sys.argv) < 6:
+  if len(sys.argv) < 8:
     print u'agrv error.'
-    print u'Usage: collect.py profile_id_file_path cmd_file_path client_secrets_file_path token_file_path output_dir_path collect_date'
+    print u'Usage: collect.py collect_web_property_file_path profile_id_file_path cmd_file_path client_secrets_file_path token_file_path log_dir output_dir_path collect_date'
     exit(1)
   main(sys.argv[1:])

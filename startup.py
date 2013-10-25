@@ -18,6 +18,7 @@ def main(argv):
   current_dir = os.path.dirname(__file__)
   collect_file_name = os.path.join(current_dir, u'collect.py')
   merge_file_name = os.path.join(current_dir, u'merge.py')
+  collect_web_property_file_name = os.path.join(current_dir, u'collect_web_property.py')
   profile_dir = os.path.join(current_dir, u'proj/profile')
   command_dir = os.path.join(current_dir, u'proj/command')
   cs_conf_dir = os.path.join(current_dir, u'proj/client_secrets')
@@ -57,7 +58,7 @@ def main(argv):
       if not os.path.exists(output_dir):
         os.makedirs(output_dir)
       print u'Start Collect', profile_file
-      collect.main([profile_file_path, cmd_file, cs_conf_file, cs_data_file, output_dir, str(collect_date)])
+      collect.main([collect_web_property_file_name, profile_file_path, cmd_file, cs_conf_file, cs_data_file, collect_log_dir, output_dir, str(collect_date)])
   print u'All Collect Succ.'
 
   # merge
