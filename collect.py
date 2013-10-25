@@ -14,6 +14,7 @@ import util
 
 
 def get_profile_ids(profile_id_file_path):
+  profile_id = []
   if not os.path.exists(profile_id_file_path):
     print profile_id_file_path, u'is not exists'
     exit(1)
