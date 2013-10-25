@@ -92,7 +92,7 @@ def get_results(service,
   return eval(cmd)
 
 
-def get_cmds(cmd_file_path):
+def get_cmds(cmd_file_path, collect_date):
   if not os.path.exists(cmd_file_path):
     print cmd_file_path, 'is not exists'
     exit(1)
@@ -162,7 +162,7 @@ def main(argv):
   if not os.path.exists(output_dir_path):
     os.makedirs(output_dir_path)
 
-  cmds = get_cmds(cmd_file_path)
+  cmds = get_cmds(cmd_file_path, collect_date)
   print u'Init succ.'
   print u'\nID:', profile
   profile_data = []

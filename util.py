@@ -16,7 +16,7 @@ def start_proc(command, log_file_path, proc_list):
     proc_list.append({u'proc':subprocess.Popen(command, stderr=f, stdout=f), u'status':u'running', u'log':log_file_path, u'command':command})
   elif sys.platform.find('linux') == 0:
     proc_list.append({u'proc':subprocess.Popen(command, stderr=f, stdout=f, close_fds=True), u'status':u'running', u'log':log_file_path, u'command':command})
-  print proc_list
+  print u'process list len:', len(proc_list)
 
 
 def process_pump(command_list, retry_limit_count, process_limit_count, time_interval):
