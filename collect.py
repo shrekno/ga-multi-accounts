@@ -6,6 +6,7 @@ import re
 import sys
 import time
 import json
+import uuid
 import random
 import codecs
 import datetime
@@ -45,7 +46,7 @@ def main(argv):
     return
   collect_date_array = argv[argv_start_index+5].split('-')
   collect_date = datetime.date(int(collect_date_array[0]), int(collect_date_array[1]), int(collect_date_array[2]))
-  user_uuid = argv[argv_start_index+6]
+
   if not os.path.exists(output_dir_path):
     os.makedirs(output_dir_path)
 
@@ -53,7 +54,7 @@ def main(argv):
 
   process_commands = []
   for profile in profile_id:
-    comp_command = [u'python', collect_file_name, profile, cmd_file, cs_conf_file, cs_data_file, output_dir, str(collect_date), str(uuid.uuid4())]
+    comp_command = [u'python', collect_file_name, profile, cmd_file_path, client_secrets_file_path, token_file_path, output_dir_path, str(collect_date), str(uuid.uuid4())]
     log_file = util.create_log_file_path(os.path.join(collect_log_dir, str(collect_date), profile_file[:profile_file.find('.')]), profile)
     process_commands.append({u'command': comp_command, u'log': log_file})
 
@@ -63,8 +64,8 @@ def main(argv):
 
 
 if __name__ == '__main__':
-  if len(sys.argv) < 7:
+  if len(sys.argv) < 6:
     print u'agrv error.'
-    print u'Usage: collect.py profile_id_file_path cmd_file_path client_secrets_file_path token_file_path output_dir_path collect_date user_uuid'
+    print u'Usage: collect.py profile_id_file_path cmd_file_path client_secrets_file_path token_file_path output_dir_path collect_date'
     exit(1)
   main(sys.argv[1:])

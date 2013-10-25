@@ -4,7 +4,6 @@
 import os
 import re
 import sys
-import uuid
 import time
 import codecs
 import shutil
@@ -58,7 +57,7 @@ def main(argv):
       if not os.path.exists(output_dir):
         os.makedirs(output_dir)
       print u'Start Collect', profile_file
-      collect.main([profile_file_path, cmd_file, cs_conf_file, cs_data_file, output_dir, str(collect_date), str(uuid.uuid4())])
+      collect.main([profile_file_path, cmd_file, cs_conf_file, cs_data_file, output_dir, str(collect_date)])
   print u'All Collect Succ.'
 
   # merge
