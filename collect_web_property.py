@@ -160,9 +160,9 @@ def main(argv):
   service = initialize_service(token_file_path, client_secrets_file_path)
   if not os.path.exists(output_dir_path):
     os.makedirs(output_dir_path)
-
-  get_cmds(cmd_file_path)
-	print u'Init succ.'
+    
+  cmds = get_cmds(cmd_file_path)
+  print u'Init succ.'
   print u'\nID:', profile
   profile_data = []
   out_file_path = os.path.join(output_dir_path, profile+'.json')

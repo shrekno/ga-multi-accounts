@@ -31,7 +31,6 @@ def get_profile_ids(profile_id_file_path):
 
 
 def main(argv):
-
   argv_start_index = 0
   collect_file_name = argv[argv_start_index]
   profile_id_file_path = argv[argv_start_index + 1]

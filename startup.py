@@ -15,7 +15,7 @@ from proj import conf
 
 
 def main(argv):
-  current_dir = os.path.dirname(__file__)
+  current_dir = os.path.dirname(os.path.abspath(__file__))
   collect_file_name = os.path.join(current_dir, u'collect.py')
   merge_file_name = os.path.join(current_dir, u'merge.py')
   collect_web_property_file_name = os.path.join(current_dir, u'collect_web_property.py')
