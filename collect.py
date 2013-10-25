@@ -45,7 +45,6 @@ def main(argv):
   collect_date_array = argv[argv_start_index+5].split('-')
   collect_date = datetime.date(int(collect_date_array[0]), int(collect_date_array[1]), int(collect_date_array[2]))
   user_uuid = argv[argv_start_index+6]
-  service = initialize_service(token_file_path, client_secrets_file_path)
   if not os.path.exists(output_dir_path):
     os.makedirs(output_dir_path)
 
