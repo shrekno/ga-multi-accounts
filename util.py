@@ -68,7 +68,7 @@ def peek_process_running_state(proc_list):
     if sp[u'status'] == u'running':
       sp[u'proc'].poll()
     if sp[u'proc'].returncode != None:
-      if check_log_file(sp[u'log'])
+      if check_log_file(sp[u'log']):
         sp[u'status'] = u'succ'
       else:
         sp[u'status'] = u'fail'
