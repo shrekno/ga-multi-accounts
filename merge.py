@@ -158,10 +158,9 @@ def two_way_merge(left, right):
         print u'Error: right no result'
         exit(1)
       if (u'containsSampledData' in l_result) and (u'containsSampledData' in r_result):
-        l_result[u'containsSampledData'] = l_result[u'containsSampledData'] or r_result[u'containsSampledData']
+        l_result[u'containsSampledData'] = (l_result[u'containsSampledData'] or r_result[u'containsSampledData'])
         if l_result[u'containsSampledData']:
           print u'Fatal Error: sampled data!'
-          exit(1)
       else:
         print u'Error: result error'
         exit(1)
