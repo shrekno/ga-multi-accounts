@@ -125,7 +125,7 @@ def main(argv):
 
 
 if __name__ == '__main__':
-    if sys.argv < 3:
+    if len(sys.argv) < 3:
         print u'agrv error.'
         print u'Usage: check_health.py collect_json_dir_path output_file_path summary_file_path'
         exit(1)
