@@ -144,14 +144,14 @@ def two_way_merge(left, right):
     if len(left) == 0:
         exit(1)
     if len(right) == 0:
-        print 'Error: right is empty'
+        print u'Error: right is empty'
         return
     avg_process(left, pre_avg_op)
     avg_process(right, pre_avg_op)
     for i in xrange(0, len(left)):
         l_result = {}
         r_result = {}
-        if left[i]['name'] == right[i]['name']:
+        if left[i][u'name'] == right[i][u'name']:
             if u'result' in left[i]:
                 l_result = left[i][u'result']
             else:
@@ -227,14 +227,14 @@ def two_way_merge(left, right):
                         else:
                             l_result[u'rows'].append(dim)
         else:
-            print u'Error: data error'
+            print u'Error: data error', left[i][u'name'], right[i][u'name']
             exit(1)
     avg_process(left, post_avg_op)
 
 
 def load_json_data(file_path):
     if not os.path.exists(file_path):
-        print u'Error:', file_path, 'is not exists.'
+        print u'Error:', file_path, u'is not exists.'
         exit(1)
     f = codecs.open(file_path, encoding='utf-8', mode='r')
     line = f.readline()
