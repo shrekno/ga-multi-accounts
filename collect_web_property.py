@@ -52,7 +52,8 @@ def parse_data_from_results(out_data, results, cmd):
         data[u'result'] = results
         out_data.append(data)
     else:
-        print u'No results found'
+        print u'Error: No results found'
+        exit(1)
 
 
 def get_results(service,
@@ -95,7 +96,7 @@ def get_results(service,
 def get_cmds(cmd_file_path, collect_date):
     cmds = []
     if not os.path.exists(cmd_file_path):
-        print cmd_file_path, 'is not exists'
+        print u'Error:', cmd_file_path, 'is not exists'
         exit(1)
     f = codecs.open(cmd_file_path, encoding='utf-8', mode='r')
     line = f.readline()
@@ -239,7 +240,7 @@ def main(argv):
 
 if __name__ == '__main__':
     if len(sys.argv) < 7:
-        print u'agrv error.'
+        print u'Error: agrv error.'
         print u'Usage: collect.py profile_id cmd_file_path client_secrets_file_path token_file_path output_dir_path collect_date user_uuid'
         exit(1)
     main(sys.argv[1:])
