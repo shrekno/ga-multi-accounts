@@ -44,8 +44,11 @@ def process_pump(command_list, retry_limit_count, process_limit_count, time_inte
                         print 'Error:', proc[u'command'][2], 'has touch the retry limits.'
                         exit(1)
                     retry[proc[u'command'][2]] += 1
-                else:
+                elif retry_limit_count > 0:
                     retry[proc[u'command'][2]] = 1
+                else:
+                    print 'Error:', proc[u'command'][2], 'do not retry, and has errors.'
+                    exit(1) 
                 retry_command = proc[u'command']
                 retry_log_file = proc[u'log']
                 del processes[processes.index(proc)]
