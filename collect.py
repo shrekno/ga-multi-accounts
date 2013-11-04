@@ -60,7 +60,7 @@ def main(argv):
         process_commands.append({u'command': comp_command, u'log': log_file})
 
     print u'len of process command: ', len(process_commands)
-    util.process_pump(process_commands, 0, 5, 2)
+    util.process_pump(process_commands, 3, 6, 2)
     print u'\nAll complete.'
 
 
