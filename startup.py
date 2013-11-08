@@ -29,7 +29,7 @@ def main(argv):
     merge_log_dir = os.path.join(current_dir, 'proj/log/merge')
 
     # the day before yesterday
-    collect_date = datetime.date.today() - datetime.timedelta(days=2)
+    collect_date = datetime.date.today() - datetime.timedelta(days=1)
 
     if len(argv) > 0:
         argv_start_index = 0
