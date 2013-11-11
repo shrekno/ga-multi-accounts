@@ -33,18 +33,20 @@ def check_total_visits(data, account, web_property, summary):
             if (u'rows' in result):
                 if len(result[u'rows']) == 1 and len(result[u'rows'][0]) == 1:
                     total_visits = int(result[u'rows'][0][0])
+                    if not u'check_total_visits' in summary[u'detail']:
+                        summary[u'detail'][u'check_total_visits'] = []
                     if total_visits <= 5000:
                         ret[data[i][u'name']] = u'Fine'
                     elif total_visits > 5000 and int(result[u'rows'][0][0]) <= 8000:
                         ret[data[i][u'name']] = u'Danger'
                         print u'Danger:', total_visits, u'in', account, web_property
-                        summary[u'detail'][u'check_total_visits'] = u'Danger: ' + str(
-                            total_visits) + u' in ' + account + u' ' + web_property
+                        summary[u'detail'][u'check_total_visits'].append(u'Danger: ' + str(
+                            total_visits) + u' in ' + account + u' ' + web_property)
                     elif total_visits > 8000:
                         ret[data[i][u'name']] = u'Error'
                         print u'Error:', total_visits, u'in', account, web_property
-                        summary[u'detail'][u'check_total_visits'] = u'Error: ' + str(
-                            total_visits) + u' in ' + account + u' ' + web_property
+                        summary[u'detail'][u'check_total_visits'].append(u'Error: ' + str(
+                            total_visits) + u' in ' + account + u' ' + web_property)
             else:
                 ret[data[i][u'name']] = u'NoRows'
             break
@@ -60,12 +62,14 @@ def check_sampled(data, account, web_property, summary):
         else:
             ret[data[i][u'name']] = u'NoResult'
             continue
+        if not u'check_sampled' in summary[u'detail']:
+            summary[u'detail'][u'check_sampled'] = []
         if u'containsSampledData' in result:
             if result[u'containsSampledData']:
                 ret[data[i][u'name']] = u'Error'
                 print u'Error in', account, web_property
-                summary[u'detail'][u'check_sampled'] = u'Error in ' + \
-                    account + u' ' + web_property
+                summary[u'detail'][u'check_sampled'].append(u'Error in ' + \
+                    account + u' ' + web_property)
             else:
                 ret[data[i][u'name']] = u'Fine'
         else:

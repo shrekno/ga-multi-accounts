@@ -1,10 +1,467 @@
-[Region Main Process Start Visitor]
+#接入手机
+##小时
+###总人数
+[Hourly Device Change Visitor]
 _sta=str(collect_date)
 _end=str(collect_date)
 _met=ga:visitors
-_dim=ga:region
-_fil=ga:eventCategory==ProcessStartup
-_seg=
-_sor=
-_max=
-_ind=
+_dim=ga:hour
+_fil=ga:eventCategory==DeviceChanged
+###分版本人数
+[Version Hourly Device Change Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:hour,ga:eventLabel
+_fil=ga:eventCategory==DeviceChanged
+##日
+###分版本次数
+[Version Device Change Visits]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:totalEvents
+_dim=ga:eventLabel
+_fil=ga:eventCategory==DeviceChanged
+###总人数
+[Device Change Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=
+_fil=ga:eventCategory==DeviceChanged
+###分版本人数
+[Version Device Change Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel
+_fil=ga:eventCategory==DeviceChanged
+##周
+###总次数
+###分版本次数
+[Version Weekly Device Change Visits]
+_sta=str(collect_date - datetime.timedelta(days = 6))
+_end=str(collect_date)
+_met=ga:totalEvents
+_dim=ga:eventLabel
+_fil=ga:eventCategory==DeviceChanged
+总人数
+[Weekly Device Change Visitor]
+_sta=str(collect_date - datetime.timedelta(days = 6))
+_end=str(collect_date)
+_met=ga:visitors
+_dim=
+_fil=ga:eventCategory==DeviceChanged
+分版本人数
+[Version Weekly Device Change Visitor]
+_sta=str(collect_date - datetime.timedelta(days = 6))
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel
+_fil=ga:eventCategory==DeviceChanged
+##月
+###总次数
+###分版本次数
+[Version Monthly Device Change Visits]
+_sta=str(collect_date - datetime.timedelta(days = 29))
+_end=str(collect_date)
+_met=ga:totalEvents
+_dim=ga:eventLabel
+_fil=ga:eventCategory==DeviceChanged
+###总人数
+[Monthly Device Change Visitor]
+_sta=str(collect_date - datetime.timedelta(days = 29))
+_end=str(collect_date)
+_met=ga:visitors
+_dim=
+_fil=ga:eventCategory==DeviceChanged
+###分版本人数
+[Version Monthly Device Change Visitor]
+_sta=str(collect_date - datetime.timedelta(days = 29))
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel
+_fil=ga:eventCategory==DeviceChanged
+##新用户
+###分版本次数
+[Version New Device Change Visits]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:totalEvents
+_dim=ga:eventLabel
+_fil=ga:eventCategory==DeviceChanged;ga:pageTitle=~^new_.*
+###总人数
+[New Device Change Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=
+_fil=ga:eventCategory==DeviceChanged;ga:pageTitle=~^new_.*
+###分版本人数
+[Version New Device Change Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel
+_fil=ga:eventCategory==DeviceChanged;ga:pageTitle=~^new_.*
+
+#设备型号
+##设备数
+[Device Type Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:hostname
+_fil=
+
+#MIUI版本
+##设备数
+[Miui Version Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:pagePath
+_fil=
+
+#共享上网
+##开启
+###分版本次数
+[Version Net Share Start Visits]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:totalEvents
+_dim=ga:eventLabel,ga:eventAction
+_fil=ga:eventCategory==UsbNetSharingOpen
+###总人数
+[Net Share Start Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=
+_fil=ga:eventCategory==UsbNetSharingOpen
+###分版本人数
+[Version Net Share Start Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel
+_fil=ga:eventCategory==UsbNetSharingOpen
+
+##结束
+###分版本次数
+[Version Net Share Finish Visits]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:totalEvents
+_dim=ga:eventLabel,ga:eventAction
+_fil=ga:eventCategory==UsbNetSharingClose
+###总人数
+[Net Share Finish Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=
+_fil=ga:eventCategory==UsbNetSharingClose
+###分版本人数
+[Version Net Share Finish Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel
+_fil=ga:eventCategory==UsbNetSharingClose
+
+##开始执行状态
+###分版本人数
+[Version Net Share Start Status Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel,ga:eventAction
+_fil=ga:eventCategory==UsbNetSharingOpen
+##结束执行状态
+###分版本人数
+[Version Net Share Finish Status Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel,ga:eventAction
+_fil=ga:eventCategory==UsbNetSharingClose
+
+#备份
+##开启
+###分版本次数
+[Version Backup Start Visits]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:totalEvents
+_dim=ga:eventLabel,ga:eventAction
+_fil=ga:eventCategory==BackupStart
+###总人数
+[Backup Start Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=
+_fil=ga:eventCategory==BackupStart
+###分版本人数
+[Version Backup Start Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel
+_fil=ga:eventCategory==BackupStart
+##结束
+###分版本次数
+[Version Backup Finish Visits]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:totalEvents
+_dim=ga:eventLabel,ga:eventAction
+_fil=ga:eventCategory==BackupFinish
+###总人数
+[Backup Finish Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=
+_fil=ga:eventCategory==BackupFinish
+###分版本人数
+[Version Backup Finish Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel
+_fil=ga:eventCategory==BackupFinish
+##开始执行状态
+###分版本人数
+[Version Backup Start Status Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel,ga:eventAction
+_fil=ga:eventCategory==BackupStart
+##结束执行状态
+###分版本人数
+[Version Backup Finish Status Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel,ga:eventAction
+_fil=ga:eventCategory==BAckupFinish
+
+#还原
+##开启
+###分版本次数
+[Version Restore Start Visits]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:totalEvents
+_dim=ga:eventLabel,ga:eventAction
+_fil=ga:eventCategory==RestoreStart
+###总人数
+[Restore Start Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=
+_fil=ga:eventCategory==RestoreStart
+###分版本人数
+[Version Restore Start Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel
+_fil=ga:eventCategory==RestoreStart
+##结束
+###分版本次数
+[Version Restore Finish Visits]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:totalEvents
+_dim=ga:eventLabel,ga:eventAction
+_fil=ga:eventCategory==RestoreFinish
+###总人数
+[Restore Finish Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=
+_fil=ga:eventCategory==RestoreFinish
+###分版本人数
+[Version Restore Finish Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel
+_fil=ga:eventCategory==RestoreFinish
+##开始执行状态
+###分版本人数
+[Version Restore Start Status Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel,ga:eventAction
+_fil=ga:eventCategory==RestoreStart
+##结束执行状态
+###分版本人数
+[Version Restore Finish Status Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel,ga:eventAction
+_fil=ga:eventCategory==RestoreFinish
+
+#OTA
+##开启
+###分版本次数
+[Version OTA Start Visits]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:totalEvents
+_dim=ga:eventLabel,ga:eventAction
+_fil=ga:eventCategory==OTAStart
+###总人数
+[OTA Start Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=
+_fil=ga:eventCategory==OTAStart
+###分版本人数
+[Version OTA Start Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel
+_fil=ga:eventCategory==OTAStart
+##结束
+###分版本次数
+[Version OTA Finish Visits]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:totalEvents
+_dim=ga:eventLabel,ga:eventAction
+_fil=ga:eventCategory==OTAFinish
+###总人数
+[OTA Finish Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=
+_fil=ga:eventCategory==OTAFinish
+###分版本人数
+[Version OTA Finish Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel
+_fil=ga:eventCategory==OTAFinish
+##开始执行状态
+###分版本人数
+[Version OTA Start Status Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel,ga:eventAction
+_fil=ga:eventCategory==OTAStart
+##结束执行状态
+###分版本人数
+[Version OTA Finish Status Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel,ga:eventAction
+_fil=ga:eventCategory==OTAFinish
+
+#应用安装
+##分版本次数
+[Version App Install Visits]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:totalEvents
+_dim=ga:eventLabel,ga:eventAction
+_fil=ga:eventCategory==AppInstall
+##总人数
+[App Install Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=
+_fil=ga:eventCategory==AppInstall
+##分版本人数
+[Version App Install Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel
+_fil=ga:eventCategory==AppInstall
+##执行状态
+###分版本人数
+[Version App Install  Status Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel,ga:eventAction
+_fil=ga:eventCategory==AppInstall
+
+#游戏安装
+##分版本次数
+[Version Game Install Visits]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:totalEvents
+_dim=ga:eventLabel,ga:eventAction
+_fil=ga:eventCategory==GameInstall
+##总人数
+[Net Game Install Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=
+_fil=ga:eventCategory==GameInstall
+##分版本人数
+[Version Game Install Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel
+_fil=ga:eventCategory==GameInstall
+##执行状态
+###分版本人数
+[Version Game Install  Status Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel,ga:eventAction
+_fil=ga:eventCategory==GameInstall
+
+#拖拽安装
+##分版本次数
+[Version Drag Install Visits]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:totalEvents
+_dim=ga:eventLabel,ga:eventAction
+_fil=ga:eventCategory==DragInstall
+##总人数
+[Drag Install Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=
+_fil=ga:eventCategory==DragInstall
+##分版本人数
+[Version Drag Install Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel
+_fil=ga:eventCategory==DragInstall
+##执行状态
+###分版本人数
+[Version Drag Install  Status Visitor]
+_sta=str(collect_date)
+_end=str(collect_date)
+_met=ga:visitors
+_dim=ga:eventLabel,ga:eventAction
+_fil=ga:eventCategory==DragInstall
