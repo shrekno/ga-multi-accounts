@@ -104,6 +104,9 @@ def get_cmds(cmd_file_path, collect_date):
     while line:
         if line[-2:] == u'\r\n':
             line = line[:-2]
+        # comment
+        if line.find(u'#') == 0:
+            continue
         if line.find(u'[') >= 0 and line.find(u']') >= 0:
             if u'name' in cmd:
                 cmds.append(cmd)
