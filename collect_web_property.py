@@ -106,6 +106,7 @@ def get_cmds(cmd_file_path, collect_date):
             line = line[:-2]
         # comment
         if line.find(u'#') == 0:
+            line = f.readline()
             continue
         if line.find(u'[') >= 0 and line.find(u']') >= 0:
             if u'name' in cmd:
