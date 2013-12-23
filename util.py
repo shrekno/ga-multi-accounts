@@ -53,7 +53,6 @@ def process_pump(command_list, retry_limit_count, process_limit_count, time_inte
                 retry_log_file = proc[u'log']
                 del processes[processes.index(proc)]
                 print u'Retry: ', str(retry_command)
-                time.sleep(5)
                 start_proc(retry_command, retry_log_file, processes)
             elif proc[u'status'] == u'succ':
                 pass
@@ -66,7 +65,6 @@ def process_pump(command_list, retry_limit_count, process_limit_count, time_inte
             break
 
         if running_count < process_limit_count and command_index < len(command_list):
-            time.sleep(1.2)
             start_proc(command_list[command_index][
                        u'command'], command_list[command_index][u'log'], processes)
             print 'Start command: ', str(command_list[command_index])

@@ -85,8 +85,8 @@ def get_results(service,
         param += u',segment=_segment'
     if len(_sort) > 0 and _sort != u'':
         param += u',sort=_sort'
-    # if len(_user_uuid) > 0 and _user_uuid != u'':
-    #     param += u',quotaUser=_user_uuid'
+    if len(_user_uuid) > 0 and _user_uuid != u'':
+        param += u',quotaUser=_user_uuid'
     cmd_pre = u'service.data().ga().get('
     cmd_post = u').execute()'
     cmd = cmd_pre + param + cmd_post
@@ -203,7 +203,6 @@ def main(argv):
         results = {}
         for n in range(0, 5):
             try:
-                time.sleep(0.5)
                 results = get_results(service,
                                       profile,
                                       cmd[u'start_date'],
